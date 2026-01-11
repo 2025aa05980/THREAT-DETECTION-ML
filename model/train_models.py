@@ -1,5 +1,5 @@
 
----
+"""---
 ## 4. Sample `train_models.py` (in `model/`)
 
 This script:
@@ -14,7 +14,7 @@ This script:
 - Computes metrics (you will print them and manually fill the README table).
 - Saves each trained model as `.pkl`.
 
-```python
+```python"""
 # model/train_models.py
 
 import pandas as pd
@@ -88,7 +88,7 @@ def evaluate_model(name, model, X_test, y_test, proba_available=True):
 
 def main():
     base_dir = os.path.dirname(os.path.dirname(__file__))
-    data_path = os.path.join(base_dir, 'data', 'ThreatDetection_minimalfeaturedataset.csv')
+    data_path = os.path.join(base_dir, 'data', 'ThreatDetection_dataset.csv')
     model_dir = os.path.join(base_dir, 'model')
     os.makedirs(model_dir, exist_ok=True)
 

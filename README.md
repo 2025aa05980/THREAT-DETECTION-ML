@@ -1,26 +1,13 @@
 \# Threat Detection using Network Traffic Features
 
-
-
 \## a. Problem statement
-
-
-
 Modern networks generate a large volume of traffic, and detecting malicious or suspicious activity in real time is a critical security requirement. Traditional rule-based systems often fail to generalize to new attack types or changing patterns.
-
-
 
 The goal of this project is to build and compare multiple machine learning classification models that can distinguish between \*\*benign\*\* and \*\*malicious/suspicious\*\* network flows using basic flow-level features (packet length, bytes sent/received, protocol, etc.). We then deploy an interactive \*\*Streamlit web app\*\* that allows users to upload test data, select a model, and visualize predictions and evaluation metrics.
 
-
-
 ---
 
-
-
 \## b. Dataset description
-
-
 
 \- \*\*Dataset name:\*\* ThreatDetection\_minimalfeaturedataset  
 
@@ -30,11 +17,7 @@ The goal of this project is to build and compare multiple machine learning class
 
 \- \*\*Number of features (after preprocessing):\*\* ≥ 12  
 
-
-
 \### Raw features (from CSV)
-
-Protocol,Packet_Length,Duration,Bytes_Sent,Bytes_Received,Flow_Packets/s,Flow_Bytes/s,Avg_Packet_Size,Total_Fwd_Packets,Total_Bwd_Packets,Fwd_Header_Length,Bwd_Header_Length,Sub_Flow_Fwd_Bytes,Sub_Flow_Bwd_Bytes,Inbound,Attack_Type,Label
 
 1\. `Protocol` – categorical feature (`TCP`, `UDP`, `ICMP`)  (`Protocol\_TCP`, `Protocol\_UDP`, `Protocol\_ICMP` – one-hot encoding of `Protocol`)
 
@@ -66,9 +49,7 @@ Protocol,Packet_Length,Duration,Bytes_Sent,Bytes_Received,Flow_Packets/s,Flow_By
 
 15\. `Inbound` – 1 if inbound flow, 0 if outbound  
 
-16\. `Attack_Type` – type of cyberattack or normal traffic (e.g., DDoS, Brute Force, Ransomware, Normal)
-
-17\. `Label` – target variable (1 = malicious/suspicious, 0 = benign)
+16\. `Label` – target variable (1 = malicious/suspicious, 0 = benign)
 
 \### Engineered / preprocessed features
 
