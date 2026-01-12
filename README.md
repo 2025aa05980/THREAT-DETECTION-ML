@@ -56,7 +56,7 @@ The target variable `Label` is binary:
 
 ## c. Models used and evaluation metrics
 
-We trained the following **6 classification models** on the same preprocessed dataset:
+Trained the following **6 classification models** on the same preprocessed dataset:
 
 1. Logistic Regression  
 2. Decision Tree Classifier  
