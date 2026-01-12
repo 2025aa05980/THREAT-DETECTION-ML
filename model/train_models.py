@@ -1,20 +1,4 @@
 
-"""---
-## 4. Sample `train_models.py` (in `model/`)
-
-This script:
-
-- Loads your CSV.
-- Does minimal preprocessing:
-  - Feature/label split.
-  - One-hot encoding of `Protocol`.
-  - Train-test split.
-  - Scaling where needed.
-- Trains the 6 models.
-- Computes metrics (you will print them and manually fill the README table).
-- Saves each trained model as `.pkl`.
-
-```python"""
 # model/train_models.py
 
 import pandas as pd
@@ -37,31 +21,34 @@ import xgboost as xgb
 import joblib
 import os
 
+# Load and preprocess data
 def load_and_preprocess(csv_path: str):
     df = pd.read_csv(csv_path)
 
-    # Basic feature engineering
+    # Basic feature engineering Total_Bytes and Bytes_Ratio are created from Bytes_Sent and Bytes_Received features for better model performance
     df['Total_Bytes'] = df['Bytes_Sent'] + df['Bytes_Received']
     df['Bytes_Ratio'] = df['Bytes_Sent'] / (df['Bytes_Received'] + 1)
 
-    # One-hot encode Protocol
+    # One-hot encode Protocol feature to convert categorical data into numerical format (necessary for ML algorithms that require numerical input)
     df = pd.get_dummies(df, columns=['Protocol'], drop_first=False)
 
-    # Features and target
+    # Features and target split, remove Label column from features and set it as target variable
     X = df.drop(columns=['Label'])
     y = df['Label']
 
+    # Train-test split with stratification to maintain class distribution in both sets. 
+    # 80-20 split is standard for training and evaluation.
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    # Scale numeric features (optional but helpful for LR, kNN)
+    # Scale numeric features using StandardScaler for algorithms sensitive to feature scaling
+    # z = (x - mean) / stddev
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
     return X_train, X_test, X_train_scaled, X_test_scaled, y_train, y_test, scaler, X.columns
-
 
 def evaluate_model(name, model, X_test, y_test, proba_available=True):
     y_pred = model.predict(X_test)
@@ -73,6 +60,10 @@ def evaluate_model(name, model, X_test, y_test, proba_available=True):
     metrics['f1'] = f1_score(y_test, y_pred, zero_division=0)
     metrics['mcc'] = matthews_corrcoef(y_test, y_pred)
 
+    # Calculate AUC only if probability estimates are available
+    # Applicable for models like Logistic Regression, Random Forest, XGBoost, Decision Tree, KNN, etc.
+    # proba_available flag indicates if the model supports probability outputs and avoids errors for models that do not
+    # predict_proba method returns class probabilities for classification tasks
     if proba_available:
         y_proba = model.predict_proba(X_test)[:, 1]
         metrics['auc'] = roc_auc_score(y_test, y_proba)
@@ -85,13 +76,14 @@ def evaluate_model(name, model, X_test, y_test, proba_available=True):
 
     return metrics
 
-
 def main():
+    # Initialize Paths
     base_dir = os.path.dirname(os.path.dirname(__file__))
     data_path = os.path.join(base_dir, 'data', 'ThreatDetection_dataset.csv')
     model_dir = os.path.join(base_dir, 'model')
     os.makedirs(model_dir, exist_ok=True)
 
+    # Load and preprocess data
     (X_train, X_test,
      X_train_scaled, X_test_scaled,
      y_train, y_test, scaler, feature_names) = load_and_preprocess(data_path)

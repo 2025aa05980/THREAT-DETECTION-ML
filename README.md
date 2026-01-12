@@ -3,7 +3,7 @@
 \## a. Problem statement
 Modern networks generate a large volume of traffic, and detecting malicious or suspicious activity in real time is a critical security requirement. Traditional rule-based systems often fail to generalize to new attack types or changing patterns.
 
-The goal of this project is to build and compare multiple machine learning classification models that can distinguish between \*\*benign\*\* and \*\*malicious/suspicious\*\* network flows using basic flow-level features (packet length, bytes sent/received, protocol, etc.). We then deploy an interactive \*\*Streamlit web app\*\* that allows users to upload test data, select a model, and visualize predictions and evaluation metrics.
+The goal of this project is to build and compare multiple machine learning classification models that can distinguish between \*\*benign/normal\*\* and \*\*malicious/suspicious\*\* network flows using basic flow-level features (packet length, bytes sent/received, protocol, etc.). We then deploy an interactive \*\*Streamlit web app\*\* that allows users to upload test data, select a model, and visualize predictions and evaluation metrics.
 
 ---
 
@@ -77,62 +77,39 @@ We trained the following \*\*6 classification models\*\* on the same preprocesse
 
 6\. XGBoost Classifier (Ensemble)
 
-> \*\*Important:\*\* The values in the table below are \*\*sample placeholders\*\* to show the structure. In your actual assignment, you must replace them with metrics obtained from your own training runs.
-
-\### Comparison table of evaluation metrics
-
-| ML Model Name           | Accuracy | AUC   | Precision | Recall | F1    | MCC   |
-
-|-------------------------|----------|-------|-----------|--------|-------|-------|
-
-| Logistic Regression     | 0.89     | 0.92  | 0.88      | 0.87   | 0.87  | 0.78  |
-
-| Decision Tree           | 0.86     | 0.88  | 0.84      | 0.85   | 0.84  | 0.72  |
-
-| kNN                     | 0.87     | 0.90  | 0.86      | 0.84   | 0.85  | 0.74  |
-
-| Naive Bayes             | 0.84     | 0.89  | 0.83      | 0.82   | 0.82  | 0.68  |
-
-| Random Forest (Ensemble)| 0.93     | 0.96  | 0.93      | 0.92   | 0.92  | 0.86  |
-
-| XGBoost (Ensemble)      | 0.94     | 0.97  | 0.94      | 0.93   | 0.93  | 0.88  |
-
-Replace the numbers with your actual computed metrics for:
-
-\- Accuracy
-
-\- AUC
-
-\- Precision
-
-\- Recall
-
-\- F1 Score
-
-\- Matthews Correlation Coefficient (MCC)
+### Comparison table of evaluation metrics
+|-----------------------------------------------------------------------------------------|
+| ML Model Name           |  Accuracy  |   AUC   | Precision | Recall |   F1    |   MCC   |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| Logistic Regression     | 0.5417     | 0.5111  | 0.5263    | 0.5172 | 0.5217  | 0.0818  |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| Decision Tree           | 0.4167     | 0.4138  | 0.3800    | 0.3276 | 0.3519  | -0.1748 |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| kNN                     | 0.5667     | 0.5859  | 0.5625    | 0.4655 | 0.5094  | 0.1294  |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| Naive Bayes             | 0.5417     | 0.5159  | 0.5211    | 0.6379 | 0.5736  | 0.0910  |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| Random Forest (Ensemble)| 0.5667     | 0.6058  | 0.5682    | 0.4310 | 0.4902  | 0.1292  |
+|-------------------------|------------|---------|-----------|--------|---------|---------|
+| XGBoost (Ensemble)      | 0.5750     | 0.5798  | 0.5636    | 0.5345 | 0.5487  | 0.1478  |
+|-----------------------------------------------------------------------------------------|
 
 ---
 
 \### Observations about model performance
 
-| ML Model Name           | Observation about model performance                                      |
+### Observations on Model Performance
 
-|-------------------------|---------------------------------------------------------------------------|
+| ML Model Name            | Observation about model performance |
+|--------------------------|--------------------------------------|
+| Logistic Regression      | Shows balanced but weak performance across all metrics, indicating limited learning from the feature space. |
+| Decision Tree            | Underperforms significantly with the lowest recall and negative MCC, suggesting overfitting or poor generalization. |
+| kNN                      | Offers slightly better AUC and F1 than Logistic Regression, but suffers from low recall, hinting at sensitivity to class imbalance. |
+| Naive Bayes              | Achieves the highest recall among all models, making it useful for detecting positives, though precision remains modest. |
+| Random Forest (Ensemble) | Delivers strong AUC and precision, but low recall suggests it may be conservative in predicting positives. |
+| XGBoost (Ensemble)       | Provides the best overall balance with highest accuracy and MCC, showing robust generalization and stable predictions. |
 
-| Logistic Regression     | Performs reasonably well and is fast to train. It captures linear decision boundaries but may miss complex non-linear patterns in the network data. |
-
-| Decision Tree           | Easy to interpret and can capture non-linear relationships. However, it tends to overfit, leading to slightly lower generalization performance compared to ensemble methods. |
-
-| kNN                     | Performs moderately well but is sensitive to feature scaling and the choice of k. Prediction time can be slower for large datasets since it is a lazy learner. |
-
-| Naive Bayes             | Assumes feature independence, which is not fully realistic for network flows. Still provides a strong baseline with fast training and prediction, but slightly lower overall metrics. |
-
-| Random Forest (Ensemble)| Shows strong performance across all metrics. By aggregating many decision trees, it reduces overfitting and handles non-linear relationships effectively. |
-
-| XGBoost (Ensemble)      | Achieves the best overall performance in this experiment. It handles complex feature interactions well and is robust to different feature distributions, making it suitable for threat detection. |
-
-Summarizing: \*\*Ensemble models (Random Forest and XGBoost)\*\* outperform the baseline models, and \*\*XGBoost\*\* gives the best trade-off between accuracy and robustness on this dataset.
-
+Summarizing: XGBoost delivers the strongest overall performance with the highest accuracy and MCC, while Logistic Regression, kNN, and Naive Bayes show moderate but inconsistent results. The Decision Tree performs the weakest, indicating overfitting, and Random Forest offers decent precision but struggles with recall. 
 ---
 
 \## d. Streamlit app features
