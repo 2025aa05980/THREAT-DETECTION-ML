@@ -1,9 +1,7 @@
 # Threat Detection using Network Traffic Features
 
 ## a. Problem statement
-Modern networks generate a large volume of traffic, and detecting malicious or suspicious activity in real time is a critical security requirement. Traditional rule-based systems often fail to generalize to new attack types or changing patterns.
-
-The goal of this project is to build and compare multiple machine learning classification models that can distinguish between **benign/normal** and **malicious/suspicious** network flows using basic flow-level features (packet length, bytes sent/received, protocol, etc.). We then deploy an interactive **Streamlit web app** that allows users to upload test data, select a model, and visualize predictions and evaluation metrics.
+Modern networks generate a large volume of traffic, and detecting malicious or suspicious activity in real time is a critical security requirement. Traditional rule-based systems often fail to generalize to new attack types or changing patterns.  The goal of this project is to build and compare multiple machine learning classification models that can distinguish between **benign/normal** and **malicious/suspicious** network flows using basic flow-level features (packet length, bytes sent/received, protocol, etc.). We then deploy an interactive **Streamlit web app** that allows users to upload test data, select a model, and visualize predictions and evaluation metrics.
 ---
 
 ## b. Dataset description
@@ -89,7 +87,7 @@ We trained the following **6 classification models** on the same preprocessed da
 | XGBoost (Ensemble)       | Provides the best overall balance with highest accuracy and MCC, showing robust generalization and stable predictions. |
 
 ### Comparison Summary:
-XGBoost delivers the strongest overall performance with the highest accuracy and MCC, while Logistic Regression, kNN, and Naive Bayes show moderate but inconsistent results. The Decision Tree performs the weakest, indicating overfitting, and Random Forest offers decent precision but struggles with recall. 
+# XGBoost delivers the strongest overall performance with the highest accuracy and MCC, while Logistic Regression, kNN, and Naive Bayes show moderate but inconsistent results. The Decision Tree performs the weakest, indicating overfitting, and Random Forest offers decent precision but struggles with recall. 
 ---
 
 \## d. Streamlit app features
