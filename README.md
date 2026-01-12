@@ -48,10 +48,16 @@
 16. `Label` – target variable (1 = malicious/suspicious, 0 = benign)
 
 ### Engineered / preprocessed features
-
-The target variable `Label` is binary:
-- `0` → Normal / Benign traffic  
-- `1` → Threat / Suspicious traffic
+- **Train–test split:**  
+  To evaluate model performance fairly, the dataset was divided into training and testing subsets using an 80/20 split. The training set is used to fit the machine learning models, while the test set is reserved exclusively for evaluating how well the models generalize to unseen data.
+- **Feature scaling using StandardScaler:**  
+  Many ML algorithms (e.g., Logistic Regression, kNN, SVM) are sensitive to differences in feature scales. To ensure all numerical features contribute equally, we applied **standardization**, which transforms each feature to have zero mean and unit variance. This prevents large‑scale features from dominating the learning process.
+- **Encoding categorical variables:**  
+  Apart from the `Protocol` column, any additional categorical features were converted into numerical format using encoding techniques such as one‑hot encoding. This ensures compatibility with ML models that require numerical inputs.
+- **Separating features and target label:**  
+  The dataset was split into input features (`X`) and the target variable (`Label`). The `Label` column indicates whether a network flow is **benign (0)** or **malicious (1)**, and is used for supervised learning.
+- **Handling missing values:**  
+  The dataset was checked for missing or invalid entries. Any missing values were either imputed or removed to maintain data quality and prevent model bias.
 ---
 
 ## c. Models used and evaluation metrics
@@ -92,34 +98,19 @@ Trained the following **6 classification models** on the same preprocessed datas
 > XGBoost delivers the strongest overall performance with the highest accuracy and MCC, while Logistic Regression, kNN, and Naive Bayes show moderate but inconsistent results. The Decision Tree performs the weakest, indicating overfitting, and Random Forest offers decent precision but struggles with recall. 
 ---
 
-\## d. Streamlit app features
+## d. Streamlit app features
 
 The Streamlit app includes the following:
 
-1\. \*\*Dataset upload option (CSV)\*\*  
+1. **Dataset upload option (CSV)**  
+   - Users can upload a test CSV file with the same schema as the training data (without the `Label` column if performing prediction only).
 
-&nbsp;  - User can upload a test CSV file with the same schema as the training data (without the `Label` column if doing prediction only).
+2. **Model selection dropdown**  
+   - A dropdown allows the user to choose among: Logistic Regression, Decision Tree, kNN, Naive Bayes, Random Forest, and XGBoost.
 
-2\. \*\*Model selection dropdown\*\*  
+3. **Display of evaluation metrics**  
+   - After loading the pre-trained models, the app displays Accuracy, AUC, Precision, Recall, F1 Score, and MCC for the selected model on the test set.
 
-&nbsp;  - A dropdown allows the user to choose among: Logistic Regression, Decision Tree, kNN, Naive Bayes, Random Forest, and XGBoost.
-
-3\. \*\*Display of evaluation metrics\*\*  
-
-&nbsp;  - After loading the pre-trained models, the app displays Accuracy, AUC, Precision, Recall, F1, and MCC for the selected model on the test set.
-
-4\. \*\*Confusion matrix / classification report\*\*  
-
-&nbsp;  - The app visualizes the confusion matrix as a heatmap and can print a text classification report.
-
+4. **Confusion matrix / classification report**  
+   - The app visualizes the confusion matrix as a heatmap and can also print a text-based classification report.
 ---
-
-\## e. How to run locally
-
-1\. Create and activate a virtual environment (optional but recommended).  
-
-2\. Install dependencies:
-
-&nbsp;  ```bash
-
-&nbsp;  pip install -r requirements.txt
