@@ -58,6 +58,14 @@ def preprocess_input(df: pd.DataFrame, feature_names):
 def main():
     st.title("Network Threat Detection - ML Model Comparison")
 
+    st.markdown("""
+    <div style="padding:12px; border:1px solid #ccc; border-radius:8px;">
+        <h4>Machine Learning – Assignment 2 – Section 4</h4>
+        <p><strong>Name:</strong> Thanigaivel S<br>
+        <strong>BITS ID:</strong> 2025AA05980</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.write(
         "Upload a CSV file with network flow data and choose a model to predict "
         "whether the traffic is benign or malicious."
