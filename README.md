@@ -75,23 +75,23 @@ Trained the following **6 classification models** on the same preprocessed datas
 
 | ML Model Name           |  Accuracy  |   AUC   | Precision | Recall |   F1    |   MCC   |
 |-------------------------|------------|---------|-----------|--------|---------|---------|
-| Logistic Regression     | 0.5417     | 0.5111  | 0.5263    | 0.5172 | 0.5217  | 0.0818  |
-| Decision Tree           | 0.4167     | 0.4138  | 0.3800    | 0.3276 | 0.3519  | -0.1748 |
-| kNN                     | 0.5667     | 0.5859  | 0.5625    | 0.4655 | 0.5094  | 0.1294  |
-| Naive Bayes             | 0.5417     | 0.5159  | 0.5211    | 0.6379 | 0.5736  | 0.0910  |
-| Random Forest (Ensemble)| 0.5667     | 0.6058  | 0.5682    | 0.4310 | 0.4902  | 0.1292  |
-| XGBoost (Ensemble)      | 0.5750     | 0.5798  | 0.5636    | 0.5345 | 0.5487  | 0.1478  |
+| Logistic Regression     | 0.5633     | 0.5795  | 0.5547    | 0.5052 | 0.5288  | 0.1241  |
+| Decision Tree           | 0.8833     | 0.8828  | 0.8905    | 0.8660 | 0.8780  | 0.7665 |
+| KNN                     | 0.6633     | 0.7111  | 0.6773    | 0.5842 | 0.6273  | 0.3263  |
+| Naive Bayes             | 0.5683     | 0.5854  | 0.5471    | 0.6392 | 0.5895  | 0.1420  |
+| Random Forest (Ensemble)| 0.9133     | 0.9842  | 0.9314    | 0.8866 | 0.9085  | 0.8272  |
+| XGBoost (Ensemble)      | 0.9150     | 0.9745  | 0.9167    | 0.9072 | 0.9119  | 0.8298  |
 
 ### Observations on Model Performance
 
 | ML Model Name            | Observation about model performance  |
 |--------------------------|--------------------------------------|
-| Logistic Regression      | Shows balanced but weak performance across all metrics, indicating limited learning from the feature space. |
-| Decision Tree            | Underperforms significantly with the lowest recall and negative MCC, suggesting overfitting or poor generalization. |
-| kNN                      | Offers slightly better AUC and F1 than Logistic Regression, but suffers from low recall, hinting at sensitivity to class imbalance. |
-| Naive Bayes              | Achieves the highest recall among all models, making it useful for detecting positives, though precision remains modest. |
-| Random Forest (Ensemble) | Delivers strong AUC and precision, but low recall suggests it may be conservative in predicting positives. |
-| XGBoost (Ensemble)       | Provides the best overall balance with highest accuracy and MCC, showing robust generalization and stable predictions. |
+| Logistic Regression      | Shows modest and balanced performance across all metrics. While stable, it struggles to capture complex nonlinear patterns in the dataset, resulting in only moderate predictive power. |
+| Decision Tree            | Achieves very high accuracy and strong performance across all metrics, indicating that it fits the dataset extremely well. However, the large jump in performance compared to simpler models suggests possible overfitting. |
+| KNN                      | Performs better than Logistic Regression but remains sensitive to feature scaling and local neighborhood structure. Its moderate recall and MCC indicate limited ability to generalize to more complex threat patterns. |
+| Naive Bayes              | Delivers good recall and reasonable F1 performance, showing strength in detecting malicious flows. However, its simplifying assumptions limit precision and overall discriminative power. |
+| Random Forest (Ensemble) | Demonstrates excellent performance across all metrics, with very high AUC and MCC. Its strong generalization suggests that ensemble averaging effectively reduces variance and captures complex relationships. |
+| XGBoost (Ensemble)       | Provides the best overall performance with the highest accuracy, F1, and MCC. Its ability to model nonlinear interactions and handle feature importance makes it the most robust and reliable model for this dataset. |
 
 ### Comparison Summary:
 
