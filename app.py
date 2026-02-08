@@ -1,6 +1,7 @@
 # app.py
 
 import streamlit as st
+import requests
 import pandas as pd
 import numpy as np
 import joblib
@@ -69,6 +70,21 @@ def main():
         list(models.keys())
     )
     model = models[model_name]
+
+    st.subheader("Download Sample Dataset")
+
+    dataset_url = "https://raw.githubusercontent.com/2025aa05980/THREAT-DETECTION-ML/main/data/ThreatDetection_dataset.csv"
+
+    # Fetch the file content
+    response = requests.get(dataset_url)
+    csv_data = response.content
+
+    st.download_button(
+        label="📥 Download ThreatDetection_dataset.csv",
+        data=csv_data,
+        file_name="ThreatDetection_dataset.csv",
+        mime="text/csv"
+    )
 
     uploaded_file = st.file_uploader(
         "Upload test CSV file",
